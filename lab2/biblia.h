@@ -12,12 +12,12 @@ struct Triangle {
 
     double perimeter() const;
     double area() const;
-    bool isValid() const;
+    bool hasArea() const;
     bool contains(const Point &P) const;
     void checkPoint(const Point &P) const;
 
 private:
-    bool isOnEdge(const Point &P, const Point &p1, const Point &p2, const std::string &name) const;
+    bool isPointOnEdge(const Point &P, const Point &p1, const Point &p2, const std::string &name) const;
 };
 
 double distance(const Point &A, const Point &B);

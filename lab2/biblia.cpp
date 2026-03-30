@@ -20,7 +20,7 @@ double Triangle::area() const {
                             (C.x - A.x) * (B.y - A.y));
 }
 
-bool Triangle::isValid() const {
+bool Triangle::hasArea() const {
     return area() > 1e-9;
 }
 
@@ -32,7 +32,7 @@ bool Triangle::contains(const Point &P) const {
     return std::fabs(S - (S1 + S2 + S3)) < 1e-9;
 }
 
-bool Triangle::isOnEdge(const Point &P,
+bool Triangle::isPointOnEdge(const Point &P,
                          const Point &p1, const Point &p2,
                          const std::string &name) const {
     double cross = (P.x - p1.x) * (p2.y - p1.y) -
@@ -57,9 +57,9 @@ void Triangle::checkPoint(const Point &P) const {
     if (P == C) { std::cout << "  The point coincides with vertex C\n"; return; }
 
     if (contains(P)) {
-        if (isOnEdge(P, A, B, "AB")) return;
-        if (isOnEdge(P, B, C, "BC")) return;
-        if (isOnEdge(P, C, A, "CA")) return;
+        if (isPointOnEdge(P, A, B, "AB")) return;
+        if (isPointOnEdge(P, B, C, "BC")) return;
+        if (isPointOnEdge(P, C, A, "CA")) return;
         std::cout << "  The point is strictly inside the triangle\n";
     } else {
         std::cout << "  The point is outside the triangle\n";
@@ -74,7 +74,7 @@ static Triangle readTriangle() {
         std::cout << "  B (x y): "; std::cin >> t.B.x >> t.B.y;
         std::cout << "  C (x y): "; std::cin >> t.C.x >> t.C.y;
 
-        if (t.isValid()) break;
+        if (t.hasArea()) break;
         std::cout << "  Degenerate triangle — points are collinear. Try again.\n";
     }
     return t;
