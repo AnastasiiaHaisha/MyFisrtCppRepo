@@ -1,4 +1,4 @@
-#include "biblia.h"
+#include "triangle.h"
 
 int main() {
     run();

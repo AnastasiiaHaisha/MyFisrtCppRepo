@@ -1,4 +1,4 @@
-#include "biblia.h"
+#include "triangle.h"
 #include <iostream>
 #include <cmath>
 #include <algorithm>
