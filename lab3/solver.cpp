@@ -57,10 +57,12 @@ void EquationSolver::bisection() {
 
 // метод Ньютона (дотичних)
 void EquationSolver::newtonMethod() {
-    double x = (left + right) / 2.0;        // початкове наближення — середина відрізку
+    double x = 10000.0;    // початкове наближення 
+    int maxiter = 1000; 
+    int iter =0; 
 
     // ітеруємо, поки |f(x)| більше за задану точність
-    while (std::abs(func(x)) > precision) {
+    while (std::abs(func(x)) > precision && iter < maxiter) {
         // перевірка на ділення на нуль
         if (std::abs(derivative(x)) < 1e-9) {
             std::cout << "Derivative is zero, stopping." << std::endl;
@@ -69,9 +71,11 @@ void EquationSolver::newtonMethod() {
         }
         // формула Ньютона: x_{n+1} = x_n - f(x_n) / f'(x_n)
         x = x - func(x) / derivative(x);
+        iter++; 
     }
 
     std::cout << "[Newton] x = " << x << std::endl;
+    std::cout <<"[Iter] iter= " <<iter << std::endl;
 }
 
 EquationSolver::~EquationSolver() {
