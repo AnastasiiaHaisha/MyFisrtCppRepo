@@ -1,10 +1,10 @@
 #include "Motorcycle.h"
 
-// Конструктор: типові значення для мотоцикла
+// Конструктор Motorcycle
 Motorcycle::Motorcycle()
 {
-    SetBrand("Generic Moto");
-    SetSpeed(220);
+    SetBrand("Generic Motorcycle");
+    SetSpeed(200);
     SetYear(2015);
     type = "Standard";
 
@@ -13,13 +13,14 @@ Motorcycle::Motorcycle()
     MakeSound();
 }
 
+// Сетер
 int Motorcycle::SetType(std::string moto_type)
 {
     type = moto_type;
     return 1;
 }
 
-// Мотоцикл видає зовсім інший звук — перевизначення polymorphism у дії
+// Override MakeSound
 int Motorcycle::MakeSound()
 {
     std::cout << "[Motorcycle] Vroom-vroom! Type: " << type << "\n";

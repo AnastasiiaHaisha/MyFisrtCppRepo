@@ -1,6 +1,6 @@
 #include "Vehicle.h"
 
-// Конструктор за замовчуванням — ініціалізує поля стандартними значеннями
+// Конструктор за замовчуванням
 Vehicle::Vehicle()
 {
     brand = "Unknown";
@@ -8,8 +8,7 @@ Vehicle::Vehicle()
     year  = 2000;
 }
 
-// --- Сетери ---
-
+// Сетери
 int Vehicle::SetBrand(std::string vehicle_brand)
 {
     brand = vehicle_brand;
@@ -28,27 +27,39 @@ int Vehicle::SetYear(int manufacture_year)
     return 1;
 }
 
-// --- Гетери ---
-
-std::string Vehicle::GetBrand() const { return brand; }
-int         Vehicle::GetSpeed() const { return speed; }
-int         Vehicle::GetYear()  const { return year;  }
-
-// Базова реалізація звуку — підкласи перевизначають цей метод
-int Vehicle::MakeSound()
+// Гетери
+std::string Vehicle::GetBrand() const
 {
-    std::cout << "[Vehicle] Vrrrr...\n";
+    return brand;
+}
+
+int Vehicle::GetSpeed() const
+{
+    return speed;
+}
+
+int Vehicle::GetYear() const
+{
+    return year;
+}
+
+// Protected метод — внутрішній помічник для ShowInfo
+int Vehicle::Describe()
+{
+    std::cout << "Brand: " << brand
+              << " | Speed: " << speed
+              << " | Year: " << year << "\n";
     return 1;
 }
 
-// Перевантаження ShowInfo — варіант 1: тільки основні дані
+// Overload варіант 1: без параметра
 int Vehicle::ShowInfo()
 {
     Describe();
     return 1;
 }
 
-// Перевантаження ShowInfo — варіант 2: дані + додатковий коментар
+// Overload варіант 2: з параметром-коментарем
 int Vehicle::ShowInfo(std::string comment)
 {
     Describe();
@@ -56,11 +67,21 @@ int Vehicle::ShowInfo(std::string comment)
     return 1;
 }
 
-// Захищений метод — виводить базову інформацію про транспортний засіб
-int Vehicle::Describe()
+// Базова реалізація MakeSound (без параметра)
+int Vehicle::MakeSound()
 {
-    std::cout << "Brand: " << brand
-              << " | Max speed: " << speed << " km/h"
-              << " | Year: " << year << "\n";
+    std::cout << "[Vehicle] Vrrrr...\n";
+    return 1;
+}
+
+// Overload MakeSound з гучністю (0-100)
+int Vehicle::MakeSound(int volume)
+{
+    if (volume <= 0)
+        std::cout << "[Vehicle] (silence)\n";
+    else if (volume < 50)
+        std::cout << "[Vehicle] vrr... (volume: " << volume << "%)\n";
+    else
+        std::cout << "[Vehicle] VRRRR! (volume: " << volume << "%)\n";
     return 1;
 }

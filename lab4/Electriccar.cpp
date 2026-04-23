@@ -1,30 +1,27 @@
 #include "ElectricCar.h"
 
-// Конструктор з параметрами — отримує дані про батарею та запас ходу
+// Параметризований конструктор: повна ініціалізація
 ElectricCar::ElectricCar(int battery, int range)
 {
-    // Перевизначаємо значення батьківського класу Car
     SetBrand("Generic EV");
-    SetSpeed(200);
-    SetYear(2020);
-
+    SetSpeed(250);
+    SetYear(2022);
     battery_capacity = battery;
-    range_km         = range;
+    range_km = range;
 
-    std::cout << "[ElectricCar created] ";
-    ShowInfo("Electric vehicle");
+    ShowInfo("Electric vehicle");  // overload з параметром
     ShowBatteryInfo();
     MakeSound();
 }
 
-// Пустий конструктор — викликає конструктор Car,
-// нащадки зможуть самі встановити поля
+// Пустий конструктор: мінімальна ініціалізація для нащадків
 ElectricCar::ElectricCar()
 {
     battery_capacity = 0;
-    range_km         = 0;
+    range_km = 0;
 }
 
+// Сетери
 int ElectricCar::SetBattery(int battery)
 {
     battery_capacity = battery;
@@ -37,14 +34,14 @@ int ElectricCar::SetRange(int range)
     return 1;
 }
 
-// Електромобіль майже безшумний — поліморфна реалізація
+// Override MakeSound
 int ElectricCar::MakeSound()
 {
     std::cout << "[ElectricCar] *silent hum* ...\n";
     return 1;
 }
 
-// Додатковий метод — виводить інформацію про батарею
+// Вивід інформації про батарею
 int ElectricCar::ShowBatteryInfo()
 {
     std::cout << "   Battery: " << battery_capacity
