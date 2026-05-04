@@ -4,7 +4,7 @@
 
 class Motorcycle : public Vehicle
 {
-    std::string type;   // тип мотоцикла (Sport, Cruiser, ...)
+    std::string type;
 
 public:
     Motorcycle();

@@ -4,16 +4,15 @@
 
 class Car : public Vehicle
 {
-    int doors;   // нова приватна властивість
+    int doors;
 
 public:
     Car();
     int SetDoors(int num_doors);
 
-    int MakeSound() override;           // Override без параметра
-    int MakeSound(int volume) override; // Override з гучністю
+    int MakeSound() override;
+    int MakeSound(int volume) override;
 
-    // Відкриваємо успадковані overload-и ShowInfo з Vehicle
     using Vehicle::ShowInfo;
-    int ShowInfo(bool show_doors);      // Overload ShowInfo з bool
+    int ShowInfo(bool show_doors);
 };
