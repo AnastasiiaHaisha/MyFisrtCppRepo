@@ -5,13 +5,13 @@ SportElectricCar::SportElectricCar(
     int battery, int range,
     std::string car_color, float accel)
 {
-    SetBrand(brand);
-    SetSpeed(speed);
-    SetYear(year);
-    SetBattery(battery);
-    SetRange(range);
-    color = car_color;
-    acceleration_0_100 = accel;
+    SetBrand(brand);   // з Vehicle (через ланцюжок наслідування)
+    SetSpeed(speed);   // з Vehicle
+    SetYear(year);     // з Vehicle
+    SetBattery(battery); // з ElectricCar
+    SetRange(range);     // з ElectricCar
+    color = car_color;   // власне поле
+    acceleration_0_100 = accel; // власне поле
 
     ShowFullInfo();
     MakeSound();
@@ -37,8 +37,8 @@ int SportElectricCar::MakeSound()
 
 int SportElectricCar::ShowFullInfo()
 {
-    ShowInfo("Sport Electric Car");
-    ShowBatteryInfo();
+    ShowInfo("Sport Electric Car"); // Vehicle::ShowInfo(string) - через ланцюжок
+    ShowBatteryInfo();              // ElectricCar::ShowBatteryInfo()
     std::cout << "   Color: " << color
               << " | 0-100 km/h: " << acceleration_0_100 << "s\n";
     return 1;

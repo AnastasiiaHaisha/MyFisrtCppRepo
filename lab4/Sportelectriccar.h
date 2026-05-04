@@ -5,7 +5,7 @@
 class SportElectricCar : public ElectricCar
 {
     std::string color;
-    float acceleration_0_100;
+    float acceleration_0_100;   
 
 public:
     SportElectricCar(

@@ -2,12 +2,12 @@
 
 Vehicle::Vehicle()
 {
-    brand = "Unknown";
+    brand = "Unknown";  // значення за замовчуванням
     speed = 0;
     year  = 2000;
 }
 
-int Vehicle::SetBrand(std::string vehicle_brand)
+int Vehicle::SetBrand(std::string vehicle_brand)  
 {
     brand = vehicle_brand;
     return 1;
@@ -67,7 +67,7 @@ int Vehicle::MakeSound()
     return 1;
 }
 
-int Vehicle::MakeSound(int volume)
+int Vehicle::MakeSound(int volume)  // ПЕРЕВАНТАЖЕННЯ - та сама назва, інший параметр
 {
     if (volume <= 0)
         std::cout << "[Vehicle] (silence)\n";

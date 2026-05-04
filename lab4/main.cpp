@@ -13,8 +13,8 @@ int main()
     v.SetSpeed(120);
     v.SetYear(2005);
 
-    v.ShowInfo();
-    v.ShowInfo("Base vehicle object");
+    v.ShowInfo();               // ShowInfo()
+    v.ShowInfo("Base vehicle"); // ShowInfo(string) - інший метод, інша поведінка
 
     std::cout << "\n=== OVERLOAD DEMO (Car) ===\n";
 
@@ -22,9 +22,9 @@ int main()
     car.SetBrand("Toyota");
     car.SetDoors(4);
 
-    car.MakeSound();
-    car.MakeSound(30);
-    car.MakeSound(90);
+    car.MakeSound();    // Car::MakeSound()
+    car.MakeSound(30);  // Car::MakeSound(int) - volume < 70, звичайний beep
+    car.MakeSound(90);  // Car::MakeSound(int) - volume > 70, BEEP
 
     car.ShowInfo();
     car.ShowInfo("Nice sedan");
@@ -33,12 +33,12 @@ int main()
     std::cout << "\n=== POLYMORPHISM DEMO ===\n";
 
     Vehicle* vehicles[3];
-    vehicles[0] = new Car();
-    vehicles[1] = new Motorcycle();
+    vehicles[0] = new Car();         // вказівник Vehicle*, але об'єкт Car
+    vehicles[1] = new Motorcycle();  // вказівник Vehicle*, але об'єкт Motorcycle
     vehicles[2] = new ElectricCar(60, 400);
 
     for (int i = 0; i < 3; i++)
-        vehicles[i]->MakeSound();
+        vehicles[i]->MakeSound();  // який MakeSound викличеться???
 
     std::cout << "\n=== POLYMORPHIC MakeSound(int) DEMO ===\n";
 
