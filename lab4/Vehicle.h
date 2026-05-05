@@ -29,4 +29,7 @@ public:
 
 protected:
     int Describe();  // доступна в нащадках, але не зовні
+
 };
+
+int run();
