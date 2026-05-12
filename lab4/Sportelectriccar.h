@@ -5,15 +5,15 @@
 class SportElectricCar : public ElectricCar
 {
     std::string color;
-    float acceleration_0_100;   
+    float acceleration_0_100;
 
 public:
     SportElectricCar(
-        std::string brand, int speed, int year,
+        const std::string& brand, int speed, int year,  // const& — без копіювання
         int battery, int range,
-        std::string car_color, float accel);
+        const std::string& car_color, float accel);     // const& — без копіювання
 
-    int SetColor(std::string car_color);
+    int SetColor(const std::string& car_color);         // const& — без копіювання
     int SetAcceleration(float accel);
 
     int MakeSound() override;

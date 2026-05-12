@@ -5,15 +5,15 @@
 
 class Vehicle
 {
-    std::string brand; // приватні поля - доступні ТІЛЬКИ всередині класу
+    std::string brand;
     int speed;
     int year;
 
 public:
     Vehicle();
-    virtual ~Vehicle() = default; // віртуальний деструктор - ОБОВ'ЯЗКОВИЙ при поліморфізмі
+    virtual ~Vehicle() = default;
 
-    int SetBrand(std::string vehicle_brand);
+    int SetBrand(const std::string& vehicle_brand);  // const& — без зайвого копіювання
     int SetSpeed(int max_speed);
     int SetYear(int manufacture_year);
 
@@ -21,15 +21,14 @@ public:
     int GetSpeed() const;
     int GetYear()  const;
 
-    virtual int MakeSound();  // можна перевизначити в нащадку
-    virtual int MakeSound(int volume);  // перевантаження + віртуальна
+    virtual int MakeSound();
+    virtual int MakeSound(int volume);
 
-    int ShowInfo();   // НЕ віртуальна - не можна перевизначити поліморфно
-    int ShowInfo(std::string comment);  // перевантаження ShowInfo
+    virtual int ShowInfo();                          // virtual — щоб поліморфізм працював
+    virtual int ShowInfo(const std::string& comment);// const& + virtual
 
 protected:
-    int Describe();  // доступна в нащадках, але не зовні
-
+    virtual int Describe();                          // virtual — нащадки можуть розширити
 };
 
 int run();

@@ -2,18 +2,18 @@
 
 #include "Car.h"
 
-class ElectricCar : public Car  // наслідує Car, а не Vehicle напряму
+class ElectricCar : public Car
 {
-protected:  // protected - бо SportElectricCar теж буде їх використовувати
+protected:
     int battery_capacity;
     int range_km;
 
 public:
-    ElectricCar(int battery, int range);  // конструктор з параметрами
-    ElectricCar();                        // конструктор без параметрів
+    ElectricCar(int battery, int range);
+    ElectricCar();
 
     int SetBattery(int battery);
-    int SetRange(int range_km);
+    int SetRange(int range);
 
     int MakeSound() override;
 

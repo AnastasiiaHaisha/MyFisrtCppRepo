@@ -6,7 +6,7 @@ ElectricCar::ElectricCar(int battery, int range)
     SetSpeed(250);
     SetYear(2022);
     battery_capacity = battery;
-    range_km = range;
+    range_km         = range;
 
     ShowInfo("Electric vehicle");
     ShowBatteryInfo();
@@ -16,7 +16,7 @@ ElectricCar::ElectricCar(int battery, int range)
 ElectricCar::ElectricCar()
 {
     battery_capacity = 0;
-    range_km = 0;
+    range_km         = 0;
 }
 
 int ElectricCar::SetBattery(int battery)

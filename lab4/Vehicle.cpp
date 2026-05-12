@@ -4,14 +4,16 @@
 #include "ElectricCar.h"
 #include "SportElectricCar.h"
 
+#include <memory>  // для unique_ptr
+
 Vehicle::Vehicle()
 {
-    brand = "Unknown";  // значення за замовчуванням
+    brand = "Unknown";
     speed = 0;
     year  = 2000;
 }
 
-int Vehicle::SetBrand(std::string vehicle_brand)  
+int Vehicle::SetBrand(const std::string& vehicle_brand)  // const& — без копіювання
 {
     brand = vehicle_brand;
     return 1;
@@ -29,20 +31,9 @@ int Vehicle::SetYear(int manufacture_year)
     return 1;
 }
 
-std::string Vehicle::GetBrand() const
-{
-    return brand;
-}
-
-int Vehicle::GetSpeed() const
-{
-    return speed;
-}
-
-int Vehicle::GetYear() const
-{
-    return year;
-}
+std::string Vehicle::GetBrand() const { return brand; }
+int         Vehicle::GetSpeed() const { return speed; }
+int         Vehicle::GetYear()  const { return year;  }
 
 int Vehicle::Describe()
 {
@@ -58,7 +49,7 @@ int Vehicle::ShowInfo()
     return 1;
 }
 
-int Vehicle::ShowInfo(std::string comment)
+int Vehicle::ShowInfo(const std::string& comment)  // const& — без копіювання
 {
     Describe();
     std::cout << "   Note: " << comment << "\n";
@@ -71,7 +62,7 @@ int Vehicle::MakeSound()
     return 1;
 }
 
-int Vehicle::MakeSound(int volume)  // ПЕРЕВАНТАЖЕННЯ - та сама назва, інший параметр
+int Vehicle::MakeSound(int volume)
 {
     if (volume <= 0)
         std::cout << "[Vehicle] (silence)\n";
@@ -82,7 +73,8 @@ int Vehicle::MakeSound(int volume)  // ПЕРЕВАНТАЖЕННЯ - та са�
     return 1;
 }
 
-int run(){
+int run()
+{
     std::cout << "=== OVERLOAD DEMO ===\n";
 
     Vehicle v;
@@ -90,8 +82,8 @@ int run(){
     v.SetSpeed(120);
     v.SetYear(2005);
 
-    v.ShowInfo();               // ShowInfo()
-    v.ShowInfo("Base vehicle"); // ShowInfo(string) - інший метод, інша поведінка
+    v.ShowInfo();
+    v.ShowInfo("Base vehicle");
 
     std::cout << "\n=== OVERLOAD DEMO (Car) ===\n";
 
@@ -99,9 +91,9 @@ int run(){
     car.SetBrand("Toyota");
     car.SetDoors(4);
 
-    car.MakeSound();    // Car::MakeSound()
-    car.MakeSound(30);  // Car::MakeSound(int) - volume < 70, звичайний beep
-    car.MakeSound(90);  // Car::MakeSound(int) - volume > 70, BEEP
+    car.MakeSound();
+    car.MakeSound(30);
+    car.MakeSound(90);
 
     car.ShowInfo();
     car.ShowInfo("Nice sedan");
@@ -109,32 +101,29 @@ int run(){
 
     std::cout << "\n=== POLYMORPHISM DEMO ===\n";
 
-    Vehicle* vehicles[3];
-    vehicles[0] = new Car();         // вказівник Vehicle*, але об'єкт Car
-    vehicles[1] = new Motorcycle();  // вказівник Vehicle*, але об'єкт Motorcycle
-    vehicles[2] = new ElectricCar(60, 400);
+    // unique_ptr замість сирих вказівників — пам'ять звільняється автоматично
+    std::unique_ptr<Vehicle> vehicles[3];
+    vehicles[0] = std::make_unique<Car>();
+    vehicles[1] = std::make_unique<Motorcycle>();
+    vehicles[2] = std::make_unique<ElectricCar>(60, 400);
 
     for (int i = 0; i < 3; i++)
-        vehicles[i]->MakeSound();  // який MakeSound викличеться???
+        vehicles[i]->MakeSound();  // викличе Car::, Motorcycle::, ElectricCar:: — завдяки virtual
 
     std::cout << "\n=== POLYMORPHIC MakeSound(int) DEMO ===\n";
 
-    Vehicle* ptr = new Car();
-    ptr->MakeSound(80);
-    delete ptr;
+    std::unique_ptr<Vehicle> ptr = std::make_unique<Car>();
+    ptr->MakeSound(80);  // Car::MakeSound(int) — завдяки virtual
+    // delete не потрібен
 
     std::cout << "\n=== SportElectricCar DEMO ===\n";
 
-    SportElectricCar* sec = new SportElectricCar(
+    auto sec = std::make_unique<SportElectricCar>(
         "Tesla", 320, 2024,
         100, 600,
         "Red", 2.9f
     );
-
-    delete sec;
-
-    for (int i = 0; i < 3; i++)
-        delete vehicles[i];
+    // delete не потрібен
 
     return 0;
 }

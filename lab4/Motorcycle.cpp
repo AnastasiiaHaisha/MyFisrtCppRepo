@@ -12,7 +12,7 @@ Motorcycle::Motorcycle()
     MakeSound();
 }
 
-int Motorcycle::SetType(std::string moto_type)
+int Motorcycle::SetType(const std::string& moto_type)  // const& — без копіювання
 {
     type = moto_type;
     return 1;

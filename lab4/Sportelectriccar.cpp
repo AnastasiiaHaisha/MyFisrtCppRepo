@@ -1,23 +1,23 @@
 #include "SportElectricCar.h"
 
 SportElectricCar::SportElectricCar(
-    std::string brand, int speed, int year,
+    const std::string& brand, int speed, int year,
     int battery, int range,
-    std::string car_color, float accel)
+    const std::string& car_color, float accel)
 {
-    SetBrand(brand);   // з Vehicle (через ланцюжок наслідування)
-    SetSpeed(speed);   // з Vehicle
-    SetYear(year);     // з Vehicle
-    SetBattery(battery); // з ElectricCar
-    SetRange(range);     // з ElectricCar
-    color = car_color;   // власне поле
-    acceleration_0_100 = accel; // власне поле
+    SetBrand(brand);
+    SetSpeed(speed);
+    SetYear(year);
+    SetBattery(battery);
+    SetRange(range);
+    color              = car_color;
+    acceleration_0_100 = accel;
 
     ShowFullInfo();
     MakeSound();
 }
 
-int SportElectricCar::SetColor(std::string car_color)
+int SportElectricCar::SetColor(const std::string& car_color)
 {
     color = car_color;
     return 1;
@@ -37,8 +37,8 @@ int SportElectricCar::MakeSound()
 
 int SportElectricCar::ShowFullInfo()
 {
-    ShowInfo("Sport Electric Car"); // Vehicle::ShowInfo(string) - через ланцюжок
-    ShowBatteryInfo();              // ElectricCar::ShowBatteryInfo()
+    ShowInfo("Sport Electric Car");
+    ShowBatteryInfo();
     std::cout << "   Color: " << color
               << " | 0-100 km/h: " << acceleration_0_100 << "s\n";
     return 1;

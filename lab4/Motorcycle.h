@@ -4,11 +4,12 @@
 
 class Motorcycle : public Vehicle
 {
-    std::string type;  // власне поле "тип мотоцикла"
+    std::string type;
 
 public:
     Motorcycle();
-    int SetType(std::string moto_type);
+    int SetType(const std::string& moto_type);  // const& — без копіювання
 
-    int MakeSound() override;  // тільки без параметра - MakeSound(int) НЕ перевизначено
+    int MakeSound() override;
+    // MakeSound(int) НЕ перевизначено — викличеться Vehicle::MakeSound(int)
 };

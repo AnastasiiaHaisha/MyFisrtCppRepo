@@ -2,17 +2,17 @@
 
 #include "Vehicle.h"
 
-class Car : public Vehicle  // Car наслідує Vehicle публічно
+class Car : public Vehicle
 {
-    int doors;  // власне поле, якого немає у Vehicle
+    int doors;
 
 public:
     Car();
     int SetDoors(int num_doors);
 
-    int MakeSound() override;  // перевизначаємо батьківський метод
+    int MakeSound() override;
     int MakeSound(int volume) override;
 
-    using Vehicle::ShowInfo;  // підтягуємо перевантаження з батька
-    int ShowInfo(bool show_doors);  // додаємо своє перевантаження
+    using Vehicle::ShowInfo;
+    int ShowInfo(bool show_doors);
 };
