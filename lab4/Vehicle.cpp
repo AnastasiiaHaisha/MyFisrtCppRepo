@@ -4,7 +4,7 @@
 #include "ElectricCar.h"
 #include "SportElectricCar.h"
 
-#include <memory>  // для unique_ptr
+
 
 Vehicle::Vehicle()
 {
@@ -101,29 +101,31 @@ int run()
 
     std::cout << "\n=== POLYMORPHISM DEMO ===\n";
 
-    // unique_ptr замість сирих вказівників — пам'ять звільняється автоматично
-    std::unique_ptr<Vehicle> vehicles[3];
-    vehicles[0] = std::make_unique<Car>();
-    vehicles[1] = std::make_unique<Motorcycle>();
-    vehicles[2] = std::make_unique<ElectricCar>(60, 400);
+    Vehicle* vehicles[3];
+    vehicles[0] = new Car();
+    vehicles[1] = new Motorcycle();
+    vehicles[2] = new ElectricCar(60, 400);
 
     for (int i = 0; i < 3; i++)
         vehicles[i]->MakeSound();  // викличе Car::, Motorcycle::, ElectricCar:: — завдяки virtual
 
     std::cout << "\n=== POLYMORPHIC MakeSound(int) DEMO ===\n";
 
-    std::unique_ptr<Vehicle> ptr = std::make_unique<Car>();
+    Vehicle* ptr = new Car();
     ptr->MakeSound(80);  // Car::MakeSound(int) — завдяки virtual
-    // delete не потрібен
+    delete ptr;
 
     std::cout << "\n=== SportElectricCar DEMO ===\n";
 
-    auto sec = std::make_unique<SportElectricCar>(
+    SportElectricCar* sec = new SportElectricCar(
         "Tesla", 320, 2024,
         100, 600,
         "Red", 2.9f
     );
-    // delete не потрібен
+    delete sec;
+
+    for (int i = 0; i < 3; i++)
+        delete vehicles[i];
 
     return 0;
 }
